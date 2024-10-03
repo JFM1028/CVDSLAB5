@@ -1,20 +1,26 @@
 package com.hazinlab.gestortareasbackend;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
 
 import com.hazinlab.gestortareasbackend.model.Tarea;
 import com.hazinlab.gestortareasbackend.repository.TareaRepository;
 import com.hazinlab.gestortareasbackend.service.TareaService;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 public class TareaServiceTest {
 
@@ -29,7 +35,7 @@ public class TareaServiceTest {
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this); // Inicializa los mocks.
-    tarea = new Tarea("Tarea de prueba", "Tarea de prueba", false); // Crea una nueva tarea de prueba.
+    tarea = new Tarea("Tarea de prueba", "Tarea de prueba", false,"baja",1); // Crea una nueva tarea de prueba.
     tarea.setId("1"); // Establece un ID para la tarea.
   }
 
@@ -82,7 +88,7 @@ public class TareaServiceTest {
     Tarea tareaActualizada = tareaService.actualizarTarea(
       tarea.getId(),
       "Tarea actualizada",
-      "Tarea actualizada"
+      "Tarea actualizada", "baja", 1
     );
 
     // Verifica que la tarea actualizada no sea nula y que tenga la descripción correcta.
@@ -100,7 +106,7 @@ public class TareaServiceTest {
     assertThrows(
       NoSuchElementException.class,
       () -> {
-        tareaService.actualizarTarea("inexistente", "Nombre", "Descripción");
+        tareaService.actualizarTarea("inexistente", "Nombre", "Descripción","baja", 1);
       }
     );
   }

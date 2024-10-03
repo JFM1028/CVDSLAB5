@@ -1,19 +1,25 @@
 package com.hazinlab.gestortareasbackend;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
 
 import com.hazinlab.gestortareasbackend.model.Tarea;
 import com.hazinlab.gestortareasbackend.repository.TareaRepository;
 import com.hazinlab.gestortareasbackend.service.TareaService;
-import java.util.Collections;
-import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 public class TareaServiceTestNuevo {
 
@@ -28,7 +34,7 @@ public class TareaServiceTestNuevo {
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
-    tarea = new Tarea("Tarea de prueba", "Descripción de tarea", false);
+    tarea = new Tarea("Tarea de prueba", "Descripción de tarea", false,"baja", 1);
     tarea.setId("1");
   }
 
