@@ -1,8 +1,0 @@
-com\hazinlab\gestortareasbackend\model\TareaDTO.class
-com\hazinlab\gestortareasbackend\service\TareaService.class
-com\hazinlab\gestortareasbackend\configuration\WebConfig.class
-com\hazinlab\gestortareasbackend\repository\TareaRepository.class
-com\hazinlab\gestortareasbackend\configuration\AddHeadersFilter.class
-com\hazinlab\gestortareasbackend\controller\TareaController.class
-com\hazinlab\gestortareasbackend\GestorTareasBackendApplication.class
-com\hazinlab\gestortareasbackend\model\Tarea.class
