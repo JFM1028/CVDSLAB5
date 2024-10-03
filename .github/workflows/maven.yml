@@ -1,6 +1,9 @@
 name: Build, Test, and Deploy
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
@@ -14,9 +17,11 @@ jobs:
       - name: Set up Maven
         uses: actions/setup-java@v1
         with:
-          java-version: '17'
+          java-version: "17"
       - name: Build with Maven (compile phase only)
-        run: mvn compile
+        run: |
+          cd GestorTareas/GestorTareasBackend/GestorTareasBackend-main/gestortareasbackend/gestortareasbackend
+          mvn compile
 
   test:
     needs: build
@@ -27,9 +32,11 @@ jobs:
       - name: Set up Maven
         uses: actions/setup-java@v1
         with:
-          java-version: '17'
+          java-version: "17"
       - name: Run tests with Maven (verify phase)
-        run: mvn verify
+        run: |
+          cd GestorTareas/GestorTareasBackend/GestorTareasBackend-main/gestortareasbackend/gestortareasbackend
+          mvn verify
 
   deploy:
     needs: test
