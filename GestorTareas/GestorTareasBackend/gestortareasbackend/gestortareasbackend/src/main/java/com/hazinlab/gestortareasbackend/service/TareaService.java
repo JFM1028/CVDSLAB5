@@ -4,8 +4,7 @@ import com.hazinlab.gestortareasbackend.model.Tarea;
 import com.hazinlab.gestortareasbackend.repository.TareaRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Service; 
 /**
  * Servicio que gestiona las operaciones relacionadas con la entidad Tarea.
  * Proporciona métodos para obtener, agregar, eliminar y marcar tareas como completadas.
@@ -43,12 +42,12 @@ public class TareaService {
    *
    * @param id
    */
-  public Tarea actualizarTarea(String id, String nombre, String descripcion) {
+  public Tarea actualizarTarea(String id, String nombre, String descripcion, String dificultad, int prioridad) {
     System.err.println(
       "Tarea recibida: " + id + ", " + nombre + ", " + descripcion
     );
     Tarea tarea = tareaRepository.findById(id).orElseThrow();
-    tarea.actualizarTarea(nombre, descripcion);
+    tarea.actualizarTarea(nombre, descripcion,dificultad,prioridad);
     return tareaRepository.save(tarea);
   }
 

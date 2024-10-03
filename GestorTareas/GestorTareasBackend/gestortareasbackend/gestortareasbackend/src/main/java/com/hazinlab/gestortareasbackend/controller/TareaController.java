@@ -1,9 +1,7 @@
 package com.hazinlab.gestortareasbackend.controller;
 
-import com.hazinlab.gestortareasbackend.model.Tarea;
-import com.hazinlab.gestortareasbackend.model.TareaDTO;
-import com.hazinlab.gestortareasbackend.service.TareaService;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.hazinlab.gestortareasbackend.model.Tarea;
+import com.hazinlab.gestortareasbackend.model.TareaDTO;
+import com.hazinlab.gestortareasbackend.service.TareaService;
 
 /**
  * Controlador REST para manejar operaciones relacionadas con las tareas.
@@ -54,7 +56,9 @@ public class TareaController {
     return tareaService.actualizarTarea(
       id,
       tareaDTO.getNombre(),
-      tareaDTO.getDescripcion()
+      tareaDTO.getDescripcion(),
+      tareaDTO.getDificultad(),
+      tareaDTO.getPrioridad()
     );
   }
 

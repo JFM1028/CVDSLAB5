@@ -1,22 +1,32 @@
 package com.hazinlab.gestortareasbackend;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
 
 import com.hazinlab.gestortareasbackend.controller.TareaController;
 import com.hazinlab.gestortareasbackend.model.Tarea;
 import com.hazinlab.gestortareasbackend.model.TareaDTO;
 import com.hazinlab.gestortareasbackend.service.TareaService;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 public class TareaControllerTest {
 
@@ -31,7 +41,7 @@ public class TareaControllerTest {
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this); // Inicializa los mocks.
-    tarea = new Tarea("tarea prueba", "Tarea de prueba", false); // Crea una nueva tarea de prueba.
+    tarea = new Tarea("tarea prueba", "Tarea de prueba", false,"baja",1); // Crea una nueva tarea de prueba.
     tarea.setId("1"); // Establece un ID para la tarea.
   }
 
@@ -117,18 +127,25 @@ public class TareaControllerTest {
     TareaDTO tareaDTO = new TareaDTO();
     tareaDTO.setNombre("Nuevo Nombre");
     tareaDTO.setDescripcion("Nueva Descripción");
+    tareaDTO.setDificultad("baja");
+    tareaDTO.setPrioridad(5);
 
     // Simula que el servicio encuentra la tarea existente y la actualiza.
     when(
-      tareaService.actualizarTarea(eq(tarea.getId()), anyString(), anyString())
+      tareaService.actualizarTarea(eq(tarea.getId()), anyString(), anyString(), anyString(),anyInt())
     )
       .thenAnswer(invocation -> {
         // Obtener los argumentos de la invocación.
         String nombre = invocation.getArgument(1);
         String descripcion = invocation.getArgument(2);
+        String dificultad = invocation.getArgument(3);
+        int prioridad = invocation.getArgument(4);
+
         // Actualiza la tarea existente con los nuevos valores.
         tarea.setNombre(nombre);
         tarea.setDescripcion(descripcion);
+        tarea.setDificultad(dificultad);
+        tarea.setPrioridad(prioridad);
         return tarea; // Devuelve la tarea actualizada.
       });
 
@@ -152,7 +169,9 @@ public class TareaControllerTest {
       .actualizarTarea(
         tarea.getId(),
         tareaDTO.getNombre(),
-        tareaDTO.getDescripcion()
+        tareaDTO.getDescripcion(),
+        tareaDTO.getDificultad(),
+        tareaDTO.getPrioridad()
       );
   }
 
@@ -167,7 +186,7 @@ public class TareaControllerTest {
     Tarea nuevaTarea = new Tarea(
       tareaDTO.getNombre(),
       tareaDTO.getDescripcion(),
-      false
+      false, "baja", 1
     );
     when(tareaService.agregarTarea(any(Tarea.class))).thenReturn(nuevaTarea);
 
