@@ -1,6 +1,7 @@
 package com.hazinlab.gestortareasbackend;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import com.hazinlab.gestortareasbackend.model.Tarea;
@@ -8,7 +9,7 @@ import com.hazinlab.gestortareasbackend.repository.TareaRepository;
 import com.hazinlab.gestortareasbackend.service.TareaService;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -70,4 +71,37 @@ public class TareaServiceTest {
     verify(tareaRepository, times(1)).deleteById(tarea.getId());
   }
 
+  @Test
+  public void testActualizarTarea() {
+    // Simula que el repositorio actualiza una tarea y devuelve la tarea de prueba.
+    when(tareaRepository.findById(tarea.getId()))
+      .thenReturn(java.util.Optional.of(tarea));
+    when(tareaRepository.save(any(Tarea.class))).thenReturn(tarea);
+
+    // Llama al método del servicio que se está probando.
+    Tarea tareaActualizada = tareaService.actualizarTarea(
+      tarea.getId(),
+      "Tarea actualizada",
+      "Tarea actualizada"
+    );
+
+    // Verifica que la tarea actualizada no sea nula y que tenga la descripción correcta.
+    assertNotNull(tareaActualizada); // Asegura que la tarea actualizada no es nula.
+    assertEquals("Tarea actualizada", tareaActualizada.getDescripcion()); // Comprueba la descripción.
+  }
+
+  @Test
+  public void testActualizarTareaNoEncontrada() {
+    // Simula que el repositorio no encuentra la tarea con el ID dado.
+    when(tareaRepository.findById("inexistente"))
+      .thenReturn(java.util.Optional.empty());
+
+    // Verifica que se lance una excepción al intentar actualizar la tarea.
+    assertThrows(
+      NoSuchElementException.class,
+      () -> {
+        tareaService.actualizarTarea("inexistente", "Nombre", "Descripción");
+      }
+    );
+  }
 }
