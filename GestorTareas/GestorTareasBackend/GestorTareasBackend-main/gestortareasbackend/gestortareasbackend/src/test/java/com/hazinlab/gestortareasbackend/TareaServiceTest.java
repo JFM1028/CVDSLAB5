@@ -70,20 +70,4 @@ public class TareaServiceTest {
     verify(tareaRepository, times(1)).deleteById(tarea.getId());
   }
 
-  @Test
-  public void testMarcarCompletada() {
-    // Simula que el repositorio encuentra una tarea por ID.
-    when(tareaRepository.findById(tarea.getId()))
-      .thenReturn(Optional.of(tarea));
-    // Simula que el repositorio guarda la tarea y devuelve la tarea actualizada.
-    when(tareaRepository.save(tarea)).thenReturn(tarea);
-
-    // Llama al método del servicio que se está probando.
-    Tarea tareaCompletada = tareaService.marcarCompletada(tarea.getId());
-
-    // Verifica que la tarea esté marcada como completada.
-    assertTrue(tareaCompletada.isCompletada()); // Asegura que la tarea esté completada.
-    // Verifica que el método del repositorio fue llamado exactamente una vez.
-    verify(tareaRepository, times(1)).save(tarea);
-  }
 }

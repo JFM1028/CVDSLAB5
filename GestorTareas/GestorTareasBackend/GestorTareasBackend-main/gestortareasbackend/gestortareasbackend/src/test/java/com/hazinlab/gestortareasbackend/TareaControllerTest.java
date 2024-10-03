@@ -89,4 +89,20 @@ public class TareaControllerTest {
     // Verifica que el método del servicio fue llamado exactamente una vez.
     verify(tareaService, times(1)).marcarCompletada(tarea.getId());
   }
+
+  @Test
+  public void testAgregarTareaConNombreVacio() {
+    // Configura una tarea con nombre vacío.
+    tarea.setNombre("");
+
+    // Simula que el servicio devuelve null debido a un nombre inválido.
+    when(tareaService.agregarTarea(any(Tarea.class))).thenReturn(null);
+
+    // Llama al método del controlador que se está probando.
+    Tarea nuevaTarea = tareaController.agregarTarea(tarea);
+
+    // Verifica que la tarea no fue creada.
+    assertNull(nuevaTarea, "La tarea no debería crearse con un nombre vacío");
+  }
+
 }
