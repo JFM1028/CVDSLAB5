@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+GestorTareasBackend,com.hazinlab.gestortareasbackend.model,Tarea,18,32,0,0,8,13,4,7,4,7
+GestorTareasBackend,com.hazinlab.gestortareasbackend.model,TareaDTO,17,0,0,0,7,0,5,0,5,0
+GestorTareasBackend,com.hazinlab.gestortareasbackend.configuration,WebConfig,0,41,0,0,0,7,0,2,0,2
+GestorTareasBackend,com.hazinlab.gestortareasbackend.configuration,AddHeadersFilter,16,3,0,0,5,1,1,1,1,1
+GestorTareasBackend,com.hazinlab.gestortareasbackend.service,TareaService,23,45,0,0,4,11,1,5,1,5
+GestorTareasBackend,com.hazinlab.gestortareasbackend,GestorTareasBackendApplication,5,3,0,0,2,1,1,1,1,1
+GestorTareasBackend,com.hazinlab.gestortareasbackend.controller,TareaController,9,22,0,0,3,6,1,5,1,5

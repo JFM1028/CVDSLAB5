@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TareaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GestorTareasBackend</a> &gt; <a href="index.source.html" class="el_package">com.hazinlab.gestortareasbackend.service</a> &gt; <span class="el_source">TareaService.java</span></div><h1>TareaService.java</h1><pre class="source lang-java linenums">package com.hazinlab.gestortareasbackend.service;
+
+import com.hazinlab.gestortareasbackend.model.Tarea;
+import com.hazinlab.gestortareasbackend.repository.TareaRepository;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * Servicio que gestiona las operaciones relacionadas con la entidad Tarea.
+ * Proporciona métodos para obtener, agregar, eliminar y marcar tareas como completadas.
+ */
+@Service
+<span class="fc" id="L14">public class TareaService {</span>
+
+  @Autowired
+  private TareaRepository tareaRepository;
+
+  /**
+   * Obtiene la lista de todas las tareas almacenadas en la base de datos.
+   *
+   * @return Una lista de objetos Tarea.
+   */
+  public List&lt;Tarea&gt; obtenerTareas() {
+<span class="fc" id="L25">    return tareaRepository.findAll();</span>
+  }
+
+  /**
+   * Agrega una nueva tarea a la base de datos.
+   *
+   * @param tarea La tarea a agregar.
+   * @return La tarea agregada, incluyendo su ID asignado.
+   */
+  public Tarea agregarTarea(Tarea tarea) {
+<span class="fc" id="L35">    System.out.println(</span>
+<span class="fc" id="L36">      &quot;Tarea recibida: &quot; + tarea.getNombre() + &quot;, &quot; + tarea.getDescripcion()</span>
+    ); // Logging para depuración
+
+<span class="fc" id="L39">    return tareaRepository.save(tarea);</span>
+  }
+
+  /**
+   *
+   * @param id
+   */
+  public Tarea actualizarTarea(String id, String nombre, String descripcion) {
+<span class="nc" id="L47">    System.err.println(</span>
+      &quot;Tarea recibida: &quot; + id + &quot;, &quot; + nombre + &quot;, &quot; + descripcion
+    );
+<span class="nc" id="L50">    Tarea tarea = tareaRepository.findById(id).orElseThrow();</span>
+<span class="nc" id="L51">    tarea.actualizarTarea(nombre, descripcion);</span>
+<span class="nc" id="L52">    return tareaRepository.save(tarea);</span>
+  }
+
+  /**
+   * Elimina una tarea de la base de datos por su ID.
+   *
+   * @param id El ID de la tarea a eliminar.
+   */
+  public void eliminarTarea(String id) {
+<span class="fc" id="L61">    tareaRepository.deleteById(id);</span>
+<span class="fc" id="L62">  }</span>
+
+  /**
+   * Marca una tarea como completada.
+   *
+   * @param id El ID de la tarea a marcar como completada.
+   * @return La tarea actualizada, ahora marcada como completada.
+   * @throws NoSuchElementException Si no se encuentra la tarea con el ID especificado.
+   */
+  public Tarea marcarCompletada(String id) {
+<span class="fc" id="L72">    System.err.println(&quot;Tarea recibida: &quot; + id);</span>
+<span class="fc" id="L73">    Tarea tarea = tareaRepository.findById(id).orElseThrow();</span>
+<span class="fc" id="L74">    tarea.setCompletada(true);</span>
+<span class="fc" id="L75">    return tareaRepository.save(tarea);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Tarea.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GestorTareasBackend</a> &gt; <a href="index.source.html" class="el_package">com.hazinlab.gestortareasbackend.model</a> &gt; <span class="el_source">Tarea.java</span></div><h1>Tarea.java</h1><pre class="source lang-java linenums">package com.hazinlab.gestortareasbackend.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+/**
+ * Representa una tarea en el sistema.
+ * La clase Tarea se utiliza para almacenar la información de una tarea,
+ * incluyendo su descripción, estado de completada y un identificador único.
+ */
+@Document(collection = &quot;tareas&quot;)
+public class Tarea {
+
+  @Id
+  private String id;
+
+  private String nombre;
+  private String descripcion;
+  private boolean completada;
+
+  /**
+   * Constructor vacío (necesario para deserialización).
+   */
+<span class="nc" id="L24">  public Tarea() {}</span>
+
+  /**
+   * Constructor con parámetros.
+   *
+   * @param descripcion la descripción de la tarea.
+   * @param completada el estado de la tarea (completada o no).
+   */
+<span class="fc" id="L32">  public Tarea(String nombre, String descripcion, boolean completada) {</span>
+<span class="fc" id="L33">    this.nombre = nombre;</span>
+<span class="fc" id="L34">    this.descripcion = descripcion;</span>
+<span class="fc" id="L35">    this.completada = completada;</span>
+<span class="fc" id="L36">  }</span>
+
+  public void actualizarTarea(String nombre, String descripcion) {
+<span class="nc" id="L39">    this.nombre = nombre;</span>
+<span class="nc" id="L40">    this.descripcion = descripcion;</span>
+<span class="nc" id="L41">  }</span>
+
+  /**
+   * Obtiene el ID de la tarea.
+   *
+   * @return el ID de la tarea.
+   */
+  public String getId() {
+<span class="fc" id="L49">    return id;</span>
+  }
+
+  /**
+   * Establece el ID de la tarea.
+   *
+   * @param id el nuevo ID de la tarea.
+   */
+  public void setId(String id) {
+<span class="fc" id="L58">    this.id = id;</span>
+<span class="fc" id="L59">  }</span>
+
+  /**
+   * Obtiene la descripción de la tarea.
+   *
+   * @return la descripción de la tarea.
+   */
+  public String getDescripcion() {
+<span class="fc" id="L67">    return descripcion;</span>
+  }
+
+  /**
+   * Obtiene el nombre de la tarea.
+   *
+   * @return el nombre de la tarea.
+   */
+  public String getNombre() {
+<span class="fc" id="L76">    return nombre;</span>
+  }
+
+  /**
+   * Establece el nombre de la tarea.
+   *
+   * @param nombre el nuevo nombre de la tarea.
+   */
+  public void setNombre(String nombre) {
+<span class="nc" id="L85">    this.nombre = nombre;</span>
+<span class="nc" id="L86">  }</span>
+
+  /**
+   * Establece la descripción de la tarea.
+   *
+   * @param descripcion la nueva descripción de la tarea.
+   */
+  public void setDescripcion(String descripcion) {
+<span class="nc" id="L94">    this.descripcion = descripcion;</span>
+<span class="nc" id="L95">  }</span>
+
+  /**
+   * Verifica si la tarea está completada.
+   *
+   * @return true si la tarea está completada, false en caso contrario.
+   */
+  public boolean isCompletada() {
+<span class="fc" id="L103">    return completada;</span>
+  }
+
+  /**
+   * Establece el estado de la tarea como completada o no.
+   *
+   * @param completada el nuevo estado de la tarea.
+   */
+  public void setCompletada(boolean completada) {
+<span class="fc" id="L112">    this.completada = completada;</span>
+<span class="fc" id="L113">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
