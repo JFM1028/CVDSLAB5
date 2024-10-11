@@ -1,0 +1,26 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+  - job: single_job
+    displayName: 'Build, Test and Deploy in a single job'
+    steps:
+      - checkout: self
+      - script: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-17-jdk
+          java -version
+        displayName: 'Install Java 17'
+      - script: |
+          cd GestorTareas/GestorTareasBackend/gestortareasbackend/gestortareasbackend
+          mvn compile
+        displayName: 'Compile with Maven'
+      - script: |
+          cd GestorTareas/GestorTareasBackend/gestortareasbackend/gestortareasbackend
+          mvn verify
+        displayName: 'Run tests with Maven'
+      - script: echo "En construcción ..."
+        displayName: 'Deployment'
