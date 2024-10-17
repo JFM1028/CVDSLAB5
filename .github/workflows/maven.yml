@@ -22,6 +22,7 @@
             cd GestorTareas/GestorTareasBackend/gestortareasbackend/gestortareasbackend
   
             mvn compile
+            
             mvn clean package
         - name: deploy to azure
           uses: azure/webapps-deploy@v2
