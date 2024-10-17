@@ -1,16 +1,9 @@
-se prueba que el codigo .yaml este correcto haciendo uso de la pagina
-https://www.yamllint.com
-![image](https://github.com/user-attachments/assets/1de5fcc7-5c2e-45cd-a2fe-1b3cb9211390)
+# GestorTareas
+URL gestortareas-egechkbrh0fbd0cx.canadacentral-01.azurewebsites.net
 
+probando pagina principal
+![image](https://github.com/user-attachments/assets/79e5127b-8b16-41b0-aa46-885687d0a037)
 
-¿se puede lograr que se ejecute sin necesidad de compilar el proyecto?
+probando parte de graficas
+![image](https://github.com/user-attachments/assets/11796150-267b-494a-b15f-9b9751f46ba4)
 
-No, porque el proceso de `verify` en Maven requiere primero la compilación del código.
-
-¿Donde puedes ver el mensaje de error de la aplicación o logs?
-
-Si la aplicación no funciona correctamente, puedes revisar los logs en el servicio de App Service.
-
-Ve a tu App Service en el portal de Azure.
-En el menú de la izquierda, selecciona Diagnóstico y resolución de problemas o Logs de diagnóstico.
-Habilita los logs para ver el historial de errores.

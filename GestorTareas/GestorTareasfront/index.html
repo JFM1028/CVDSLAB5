@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
         }
 
         .container {
@@ -153,6 +154,9 @@
     <ul id="task-list">
         <!-- Las tareas aparecerán aquí -->
     </ul>
+
+    <!-- Botón para ir a la página de gráficos -->
+    <button onclick="location.href='graficos.html'">Ir a Gráficos</button>
 </div>
 
 <script>
@@ -293,47 +297,43 @@
 
     // Actualizar tarea
     function actualizarTarea(id) {
-        const updatedTask = {
-            nombre: taskInput.value.trim(),
-            descripcion: taskDesc.value.trim(),
+        const tareaActualizada = {
+            nombre: taskInput.value,
+            descripcion: taskDesc.value,
             dificultad: taskDifficulty.value,
-            prioridad: taskPriority.value,
+            prioridad: taskPriority.value
         };
 
         fetch(`https://cvds-app.azurewebsites.net/api/tareas/${id}/actualizar`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(updatedTask),
+            body: JSON.stringify(tareaActualizada)
         })
             .then(() => {
-                cargarTareas();
-                taskForm.reset();
-                taskForm.onsubmit = addTask; // Restaurar comportamiento original
+                location.reload();
             })
             .catch(error => {
                 console.error("Error al actualizar tarea:", error);
             });
     }
 
-    // Añadir nueva tarea
-    function addTask(e) {
+    taskForm.onsubmit = (e) => {
         e.preventDefault();
-
         const nuevaTarea = {
-            nombre: taskInput.value.trim(),
-            descripcion: taskDesc.value.trim(),
+            nombre: taskInput.value,
+            descripcion: taskDesc.value,
             dificultad: taskDifficulty.value,
-            prioridad: taskPriority.value,
+            prioridad: taskPriority.value
         };
 
         fetch("https://cvds-app.azurewebsites.net/api/tareas", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(nuevaTarea),
+            body: JSON.stringify(nuevaTarea)
         })
             .then(response => response.json())
             .then(tarea => {
@@ -343,10 +343,7 @@
             .catch(error => {
                 console.error("Error al añadir tarea:", error);
             });
-    }
-
-    taskForm.onsubmit = addTask;
-    cargarTareas();
+    };
 </script>
 </body>
 </html>

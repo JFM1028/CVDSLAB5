@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos de Tareas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 20px 0;
+            color: #4a90e2;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #357abd;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .chart-container {
+            display: none;
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Análisis de Tareas</h1>
+<div class="button-container">
+    <button onclick="showChart('dificultad')">Histograma de Dificultad</button>
+    <button onclick="showChart('finalizadas')">Número de tareas finalizadas por tiempo</button>
+    <button onclick="showChart('promedios')">Promedios de tareas por prioridad</button>
+    <button onclick="showChart('tiempoTotal')">Tiempo total invertido por tareas realizadas</button>
+</div>
+
+<div id="dificultad" class="chart-container">
+    <canvas id="chartDificultad"></canvas>
+</div>
+<div id="finalizadas" class="chart-container">
+    <canvas id="chartFinalizadas"></canvas>
+</div>
+<div id="promedios" class="chart-container">
+    <canvas id="chartPromedios"></canvas>
+</div>
+<div id="tiempoTotal" class="chart-container">
+    <canvas id="chartTiempoTotal"></canvas>
+</div>
+
+<!-- Botón para volver a la página principal -->
+<div style="margin: 20px;">
+    <button onclick="location.href='index.html'">Volver a la Página Principal</button>
+</div>
+
+<script>
+    let tareas = []; // Variable para almacenar las tareas
+
+    // Cargar las tareas desde el backend al iniciar la página
+    function cargarTareas() {
+        fetch("http://localhost:8081/api/tareas")
+            .then(response => response.json())
+            .then(data => {
+                tareas = data; // Almacena las tareas
+                // Puedes llamar a las funciones de carga de gráficos aquí si quieres mostrar datos inmediatamente
+                loadDificultadChart();
+                loadFinalizadasChart();
+                loadPromediosChart();
+                loadTiempoTotalChart();
+            })
+            .catch(error => {
+                console.error("Error al cargar tareas:", error);
+            });
+    }
+
+    function showChart(chartId) {
+        // Ocultar todos los gráficos
+        document.querySelectorAll('.chart-container').forEach(container => {
+            container.style.display = 'none';
+        });
+        // Mostrar el gráfico correspondiente
+        document.getElementById(chartId).style.display = 'block';
+
+        // Cargar los gráficos
+        if (chartId === 'dificultad') {
+            loadDificultadChart();
+        } else if (chartId === 'finalizadas') {
+            loadFinalizadasChart();
+        } else if (chartId === 'promedios') {
+            loadPromediosChart();
+        } else if (chartId === 'tiempoTotal') {
+            loadTiempoTotalChart();
+        }
+    }
+
+    function loadDificultadChart() {
+        const ctx = document.getElementById('chartDificultad').getContext('2d');
+        const dificultades = { 'Alta': 0, 'Media': 0, 'Baja': 0 };
+
+        tareas.forEach(tarea => {
+            dificultades[tarea.dificultad]++;
+        });
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Alto', 'Medio', 'Bajo'],
+                datasets: [{
+                    label: 'Tareas por Dificultad',
+                    data: [dificultades['Alta'], dificultades['Media'], dificultades['Baja']],
+                    backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe']
+                }]
+            },
+            options: { responsive: true }
+        });
+    }
+
+    function loadFinalizadasChart() {
+        const ctx = document.getElementById('chartFinalizadas').getContext('2d');
+        const finalizadasPorMes = {}; // Aquí puedes llevar un conteo por meses
+
+        tareas.forEach(tarea => {
+            const fecha = new Date(tarea.fechaCreacion); // Asegúrate de que tienes esta propiedad
+            const mes = fecha.toLocaleString('default', { month: 'long' }); // Nombre del mes
+            if (tarea.completada) {
+                finalizadasPorMes[mes] = (finalizadasPorMes[mes] || 0) + 1;
+            }
+        });
+
+        const meses = Object.keys(finalizadasPorMes);
+        const cantidades = Object.values(finalizadasPorMes);
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: 'Tareas Finalizadas',
+                    data: cantidades,
+                    backgroundColor: '#36a2eb',
+                    fill: true
+                }]
+            },
+            options: { responsive: true }
+        });
+    }
+
+    function loadPromediosChart() {
+        const ctx = document.getElementById('chartPromedios').getContext('2d');
+        const prioridades = Array(5).fill(0); // Para 5 niveles de prioridad
+
+        tareas.forEach(tarea => {
+            prioridades[tarea.prioridad - 1]++; // Suponiendo que la prioridad está en el rango 1-5
+        });
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Prioridad 1', 'Prioridad 2', 'Prioridad 3', 'Prioridad 4', 'Prioridad 5'],
+                datasets: [{
+                    label: 'Promedios de Tareas por Prioridad',
+                    data: prioridades,
+                    backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0']
+                }]
+            },
+            options: { responsive: true }
+        });
+    }
+
+    function loadTiempoTotalChart() {
+        const ctx = document.getElementById('chartTiempoTotal').getContext('2d');
+        const tiempos = []; // Aquí puedes almacenar los tiempos de cada tarea
+
+        tareas.forEach(tarea => {
+            tiempos.push(tarea.tiempoInvertido); // Asegúrate de que tienes esta propiedad
+        });
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Tarea 1', 'Tarea 2', 'Tarea 3', 'Tarea 4'], // Modificar según el número de tareas
+                datasets: [{
+                    label: 'Tiempo Total Invertido (Horas)',
+                    data: tiempos,
+                    backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56']
+                }]
+            },
+            options: { responsive: true }
+        });
+    }
+
+    window.onload = cargarTareas; // Cargar las tareas al inicio
+</script>
+
+</body>
+</html>
