@@ -28,7 +28,9 @@
           uses: azure/webapps-deploy@v2
           with:
             app-name: 'GestorTareasCVDS'
-            publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+            publish-method: 'ftp'
+            ftp-username: 'GestorTareasCVDS\felipe_darko'
+            ftp-password: 'Admin123*'
             package: $(pwd)/GestorTareas/GestorTareasBackend/gestortareasbackend/gestortareasbackend/target/gestortareasbackend-0.0.1-SNAPSHOT.jar
     test:
       needs: build
