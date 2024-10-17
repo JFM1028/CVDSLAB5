@@ -92,7 +92,7 @@
 
     // Cargar las tareas desde el backend al iniciar la página
     function cargarTareas() {
-        fetch("http://localhost:8081/api/tareas")
+        fetch("https://cvds-app.azurewebsites.net/api/tareas")
             .then(response => response.json())
             .then(data => {
                 tareas = data; // Almacena las tareas

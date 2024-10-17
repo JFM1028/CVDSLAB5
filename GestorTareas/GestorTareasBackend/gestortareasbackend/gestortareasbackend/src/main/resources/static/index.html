@@ -170,7 +170,7 @@
 
     // Función para cargar todas las tareas desde el backend al iniciar la página
     function cargarTareas() {
-        fetch("http://localhost:8081/api/tareas")
+        fetch("https://cvds-app.azurewebsites.net/api/tareas")
             .then(response => response.json())
             .then(tareas => {
                 tareas.forEach(tarea => {
@@ -250,7 +250,7 @@
 
     // Función para marcar tarea como completada en el servidor y actualizar visualmente
     function marcarCompletada(id, completada, taskSpan) {
-        fetch(`http://localhost:8081/api/tareas/${id}/completar`, {
+        fetch(`https://cvds-app.azurewebsites.net/api/tareas/${id}/completar`, {
             method: "PUT",
         })
             .then(() => {
@@ -271,7 +271,7 @@
 
     // Eliminar tarea
     function eliminarTarea(id, li) {
-        fetch(`http://localhost:8081/api/tareas/${id}`, {
+        fetch(`https://cvds-app.azurewebsites.net/api/tareas/${id}`, {
             method: "DELETE",
         })
             .then(() => {
@@ -304,7 +304,7 @@
             prioridad: taskPriority.value
         };
 
-        fetch(`http://localhost:8081/api/tareas/${id}`, {
+        fetch(`https://cvds-app.azurewebsites.net/api/tareas/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -328,7 +328,7 @@
             prioridad: taskPriority.value
         };
 
-        fetch("http://localhost:8081/api/tareas", {
+        fetch("https://cvds-app.azurewebsites.net/api/tareas", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
