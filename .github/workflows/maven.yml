@@ -29,7 +29,7 @@
           with:
             app-name: 'cvds-app'
             publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-            package: $(pwd)/target/gestortareasbackend-0.0.1-SNAPSHOT.jar
+            package: /home/runner/work/CVDSLAB5/CVDSLAB5/GestorTareas/GestorTareasBackend/gestortareasbackend/gestortareasbackend/target/gestortareasbackend-0.0.1-SNAPSHOT.jar
     test:
       needs: build
       runs-on: ubuntu-latest
