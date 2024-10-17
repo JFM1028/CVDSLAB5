@@ -27,7 +27,7 @@
         - name: deploy to azure
           uses: azure/webapps-deploy@v2
           with:
-            app-name: 'GestorTareasCVDS'
+            app-name: 'cvds-app'
             publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
             package: $(pwd)/GestorTareas/GestorTareasBackend/gestortareasbackend/gestortareasbackend/target/gestortareasbackend-0.0.1-SNAPSHOT.jar
     test:
