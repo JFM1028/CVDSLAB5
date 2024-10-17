@@ -28,7 +28,17 @@
           uses: azure/webapps-deploy@v2
           with:
             app-name: 'GestorTareasCVDS'
-            publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+            publish-profile: |
+              <publishData>
+                  <publishProfile profileName="GestorTareasCVDS - Web Deploy" publishMethod="MSDeploy"
+                                  publishUrl="gestortareascvds-h8eghwareacbcchj.scm.eastus-01.azurewebsites.net:443"
+                                  msdeploySite="GestorTareasCVDS" userName="REDACTED" userPWD="REDACTED"
+                                  destinationAppUrl="https://gestortareascvds-h8eghwareacbcchj.eastus-01.azurewebsites.net"
+                                  SQLServerDBConnectionString="REDACTED" mySQLDBConnectionString="" hostingProviderForumLink=""
+                                  controlPanelLink="https://portal.azure.com" webSystem="WebSites">
+                      <databases/>
+                  </publishProfile>
+              </publishData>
             package: $(pwd)/GestorTareas/GestorTareasBackend/gestortareasbackend/gestortareasbackend/target/gestortareasbackend-0.0.1-SNAPSHOT.jar
     test:
       needs: build
