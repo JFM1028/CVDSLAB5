@@ -32,9 +32,9 @@ public class TareaController {
      *
      * @return una lista de objetos Tarea.
      */
-    @GetMapping
-    public List<Tarea> obtenerTareas() {
-        return tareaService.obtenerTareas();
+    @GetMapping("/usuario/{usuarioId}")
+    public List<Tarea> obtenerTareas(@PathVariable String usuarioId) {
+        return tareaService.obtenerTareas(usuarioId);
     }
 
     /**

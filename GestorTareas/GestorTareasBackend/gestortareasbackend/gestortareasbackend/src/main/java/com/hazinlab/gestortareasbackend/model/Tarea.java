@@ -31,6 +31,7 @@ public class Tarea {
     private int prioridad;
     private String fecha;
     private String fechaFinalizacion;
+    private String UsuarioId;
 
     /**
      * Constructor vacío (necesario para deserialización).
@@ -44,13 +45,14 @@ public class Tarea {
      * @param descripcion la descripción de la tarea.
      * @param completada  el estado de la tarea (completada o no).
      */
-    public Tarea(String nombre, String descripcion, boolean completada, String dificultad, int prioridad) {
+    public Tarea(String nombre, String descripcion, boolean completada, String dificultad, int prioridad , String UsuarioId) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.completada = completada;
         this.dificultad = dificultad;
         this.prioridad = prioridad;
         this.fecha = new Date().toString();
+        this.UsuarioId = UsuarioId;
     }
 
     public void actualizarTarea(String nombre, String descripcion, String nuevaDificultad, int prioridad) {

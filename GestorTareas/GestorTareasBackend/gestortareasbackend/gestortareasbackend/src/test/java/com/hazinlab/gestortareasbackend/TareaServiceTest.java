@@ -35,7 +35,7 @@ public class TareaServiceTest {
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this); // Inicializa los mocks.
-    tarea = new Tarea("Tarea de prueba", "Tarea de prueba", false,"baja",1); // Crea una nueva tarea de prueba.
+    tarea = new Tarea("Tarea de prueba", "Tarea de prueba", false,"baja",1,"1"); // Crea una nueva tarea de prueba.
     tarea.setId("1"); // Establece un ID para la tarea.
   }
 
@@ -45,7 +45,7 @@ public class TareaServiceTest {
     when(tareaRepository.findAll()).thenReturn(Arrays.asList(tarea));
 
     // Llama al método del servicio que se está probando.
-    List<Tarea> tareas = tareaService.obtenerTareas();
+    List<Tarea> tareas = tareaService.obtenerTareas("1");
 
     // Verifica que la lista devuelta tenga el tamaño correcto y la descripción esperada.
     assertEquals(1, tareas.size()); // Comprueba que hay 1 tarea.

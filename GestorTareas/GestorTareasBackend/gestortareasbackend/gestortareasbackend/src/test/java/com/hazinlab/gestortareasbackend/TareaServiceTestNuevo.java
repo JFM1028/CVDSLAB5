@@ -34,7 +34,7 @@ public class TareaServiceTestNuevo {
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
-    tarea = new Tarea("Tarea de prueba", "Descripción de tarea", false,"baja", 1);
+    tarea = new Tarea("Tarea de prueba", "Descripción de tarea", false,"baja", 1,"1");
     tarea.setId("1");
   }
 
@@ -45,7 +45,7 @@ public class TareaServiceTestNuevo {
       .thenReturn(Collections.singletonList(tarea));
 
     // Llama al método del servicio que se está probando.
-    List<Tarea> tareas = tareaService.obtenerTareas();
+    List<Tarea> tareas = tareaService.obtenerTareas("1");
 
     // Verifica que la lista devuelta tenga el tamaño correcto y el ID esperado.
     assertEquals(1, tareas.size());
@@ -58,7 +58,7 @@ public class TareaServiceTestNuevo {
     when(tareaRepository.findAll()).thenReturn(Collections.emptyList());
 
     // Llama al método del servicio que se está probando.
-    List<Tarea> tareas = tareaService.obtenerTareas();
+    List<Tarea> tareas = tareaService.obtenerTareas("1");
 
     // Verifica que la lista devuelta esté vacía.
     assertTrue(tareas.isEmpty());
@@ -100,7 +100,7 @@ public class TareaServiceTestNuevo {
     tareaService.eliminarTarea(tarea.getId());
 
     // Consulta las tareas y verifica que no hay ninguna.
-    List<Tarea> tareas = tareaService.obtenerTareas();
+    List<Tarea> tareas = tareaService.obtenerTareas("1");
     assertTrue(tareas.isEmpty());
   }
 }

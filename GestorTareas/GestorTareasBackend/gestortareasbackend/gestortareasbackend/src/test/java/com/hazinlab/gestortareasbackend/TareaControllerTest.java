@@ -41,17 +41,17 @@ public class TareaControllerTest {
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this); // Inicializa los mocks.
-    tarea = new Tarea("tarea prueba", "Tarea de prueba", false,"baja",1); // Crea una nueva tarea de prueba.
-    tarea.setId("1"); // Establece un ID para la tarea.
+    tarea = new Tarea("tarea prueba", "Tarea de prueba", false,"baja",1,"1"); // Crea una tarea de prueba.
+            tarea.setId("1"); // Establece un ID para la tarea.
   }
 
   @Test
   public void testObtenerTareas() {
     // Simula que el servicio devuelve una lista con la tarea de prueba.
-    when(tareaService.obtenerTareas()).thenReturn(Arrays.asList(tarea));
+    when(tareaService.obtenerTareas("1")).thenReturn(Arrays.asList(tarea));
 
     // Llama al método del controlador que se está probando.
-    List<Tarea> tareas = tareaController.obtenerTareas();
+    List<Tarea> tareas = tareaController.obtenerTareas("1");
 
     // Verifica que la lista devuelta tenga el tamaño correcto y la descripción esperada.
     assertEquals(1, tareas.size()); // Comprueba que hay 1 tarea.
@@ -186,7 +186,7 @@ public class TareaControllerTest {
     Tarea nuevaTarea = new Tarea(
       tareaDTO.getNombre(),
       tareaDTO.getDescripcion(),
-      false, "baja", 1
+      false, "baja", 1, "1"
     );
     when(tareaService.agregarTarea(any(Tarea.class))).thenReturn(nuevaTarea);
 

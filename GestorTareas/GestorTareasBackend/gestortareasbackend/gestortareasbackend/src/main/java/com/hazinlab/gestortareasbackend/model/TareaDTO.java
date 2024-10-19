@@ -26,4 +26,5 @@ public class TareaDTO {
     private int prioridad;
     private String fecha;
     private String fechaFinalizacion;
+    private String UsuarioId;
 }

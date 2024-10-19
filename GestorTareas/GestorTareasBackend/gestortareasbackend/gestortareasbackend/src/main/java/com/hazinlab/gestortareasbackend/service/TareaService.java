@@ -23,8 +23,8 @@ public class TareaService {
      *
      * @return Una lista de objetos Tarea.
      */
-    public List<Tarea> obtenerTareas() {
-        return tareaRepository.findAll();
+    public List<Tarea> obtenerTareas(String usuarioId) {
+        return tareaRepository.findByUsuarioId(usuarioId);
     }
 
     /**
@@ -47,7 +47,7 @@ public class TareaService {
      */
     public Tarea actualizarTarea(String id, String nombre, String descripcion, String dificultad, int prioridad) {
         System.err.println(
-                "Tarea recibida: " + id + ", " + nombre + ", " + descripcion
+                "Tarea recibida: " + id + ", " + nombre + ", " + descripcion + ", " + dificultad + ", " + prioridad
         );
         Tarea tarea = tareaRepository.findById(id).orElseThrow();
         tarea.actualizarTarea(nombre, descripcion, dificultad, prioridad);
