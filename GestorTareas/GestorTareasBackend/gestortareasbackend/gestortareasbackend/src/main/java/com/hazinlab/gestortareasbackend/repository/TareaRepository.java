@@ -9,6 +9,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * CRUD (Crear, Leer, Actualizar, Eliminar) para la entidad Tarea.
  */
 public interface TareaRepository extends MongoRepository<Tarea, String> {
-  // No se requieren métodos adicionales, ya que MongoRepository proporciona
-  // la funcionalidad necesaria para manejar tareas en la base de datos MongoDB.
+    // No se requieren métodos adicionales, ya que MongoRepository proporciona
+    // la funcionalidad necesaria para manejar tareas en la base de datos MongoDB.
 }

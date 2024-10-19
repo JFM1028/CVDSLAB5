@@ -12,9 +12,9 @@ public class WebConfig implements WebMvcConfigurer {
   public void addCorsMappings(@NonNull CorsRegistry registry) {
     // Permitir solicitudes desde cualquier origen (incluyendo file://)
     registry
-      .addMapping("/**")
-      .allowedOrigins("*") // Permitir todos los orígenes
-      .allowedMethods("GET", "POST", "PUT", "DELETE")
-      .allowedHeaders("*");
+            .addMapping("/**")
+            .allowedOrigins("*") // Permitir todos los orígenes
+            .allowedMethods("GET", "POST", "PUT", "DELETE")
+            .allowedHeaders("*");
   }
 }
