@@ -41,7 +41,7 @@ public class TareaServiceTestNuevo {
   @Test
   public void testConsultaExitosaConTareaRegistrada() {
     // Simula que el repositorio devuelve una lista con la tarea de prueba.
-    when(tareaRepository.findAll())
+    when(tareaRepository.findByUsuarioId("1"))
       .thenReturn(Collections.singletonList(tarea));
 
     // Llama al método del servicio que se está probando.
