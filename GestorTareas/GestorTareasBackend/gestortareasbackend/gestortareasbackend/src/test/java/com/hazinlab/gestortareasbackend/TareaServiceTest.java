@@ -18,6 +18,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
+
 import com.hazinlab.gestortareasbackend.model.Tarea;
 import com.hazinlab.gestortareasbackend.repository.TareaRepository;
 import com.hazinlab.gestortareasbackend.service.TareaService;
@@ -41,12 +42,12 @@ public class TareaServiceTest {
 
   @Test
   public void testObtenerTareas() {
-    // Simula que el repositorio devuelve una lista con la tarea de prueba.
-    when(tareaRepository.findAll()).thenReturn(Arrays.asList(tarea));
+    // Simula que el repositorio devuelve una lista con la tarea de prueba filtrada por usuarioId.
+    when(tareaRepository.findByUsuarioId("1")).thenReturn(Arrays.asList(tarea));
 
     // Llama al método del servicio que se está probando.
     List<Tarea> tareas = tareaService.obtenerTareas("1");
-
+    System.out.println(tareas);
     // Verifica que la lista devuelta tenga el tamaño correcto y la descripción esperada.
     assertEquals(1, tareas.size()); // Comprueba que hay 1 tarea.
     assertEquals("Tarea de prueba", tareas.get(0).getDescripcion()); // Comprueba la descripción.
