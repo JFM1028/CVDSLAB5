@@ -10,5 +10,6 @@ import java.util.List;
  * CRUD (Crear, Leer, Actualizar, Eliminar) para la entidad Tarea.
  */
 public interface TareaRepository extends MongoRepository<Tarea, String> {
+
     List<Tarea> findByUsuarioId(String usuarioId);
 }

@@ -14,6 +14,7 @@ package com.hazinlab.gestortareasbackend.model;
  */
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
@@ -27,4 +28,5 @@ public class TareaDTO {
     private String fecha;
     private String fechaFinalizacion;
     private String UsuarioId;
+    private boolean completada;
 }

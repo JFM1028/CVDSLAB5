@@ -55,6 +55,16 @@ public class Tarea {
         this.UsuarioId = UsuarioId;
     }
 
+    public Tarea(TareaDTO tareaDTO) {
+        this.nombre = tareaDTO.getNombre();
+        this.descripcion = tareaDTO.getDescripcion();
+        this.completada = tareaDTO.isCompletada();
+        this.dificultad = tareaDTO.getDificultad();
+        this.prioridad = tareaDTO.getPrioridad();
+        this.fecha = tareaDTO.getFecha();
+        this.UsuarioId = tareaDTO.getUsuarioId();
+    }
+
     public void actualizarTarea(String nombre, String descripcion, String nuevaDificultad, int prioridad) {
         this.nombre = nombre;
         this.descripcion = descripcion;
