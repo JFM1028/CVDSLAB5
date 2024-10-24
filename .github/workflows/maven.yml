@@ -39,7 +39,7 @@
         - name: Set up Maven
           uses: actions/setup-java@v1
           with:
-            java-version: "17"
+            java-version: "21"
         - name: Run tests with Maven (verify phase)
           run: >
             cd GestorTareas/GestorTareasBackend/gestortareasbackend/gestortareasbackend
