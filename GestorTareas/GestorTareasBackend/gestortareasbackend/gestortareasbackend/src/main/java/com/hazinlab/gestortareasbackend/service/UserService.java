@@ -3,6 +3,7 @@ package com.hazinlab.gestortareasbackend.service;
 import com.hazinlab.gestortareasbackend.model.User;
 import com.hazinlab.gestortareasbackend.repository.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +30,7 @@ public class UserService {
     return userrepo.findAll();
   }
 
-  public User findUserByNameAndPass(User user) {
-    User user1 = userrepo.findByNameAndPwd(user.getName(), user.getPwd());
-    if (user1 != null) {
-      return user;
-    }
-    /*se arroja exception en los casos en los que el user no existe*/
-    throw new RuntimeException("Usuario no encontrado");
+  public Optional<User> findByNameAndPwd(String name, String pwd) {
+    return userrepo.findByNameAndPwd(name, pwd);
   }
 }

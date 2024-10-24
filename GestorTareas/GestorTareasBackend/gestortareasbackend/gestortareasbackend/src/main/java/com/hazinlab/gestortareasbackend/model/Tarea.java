@@ -39,6 +39,10 @@ public class Tarea {
    *
    * @param descripcion la descripción de la tarea.
    * @param completada  el estado de la tarea (completada o no).
+   * @param dificultad  la dificultad de la tarea.
+   * @param prioridad   la prioridad de la tarea.
+   * @param usuarioId   el ID del usuario al que pertenece la tarea.
+   * @param nombre      el nombre de la tarea.
    */
   public Tarea(
     String nombre,
@@ -57,6 +61,14 @@ public class Tarea {
     this.usuarioId = usuarioId;
   }
 
+  /**
+   * Actualiza los datos de la tarea.
+   *
+   * @param nombre         el nuevo nombre de la tarea.
+   * @param descripcion    la nueva descripción de la tarea.
+   * @param nuevaDificultad la nueva dificultad de la tarea.
+   * @param prioridad      la nueva prioridad de la tarea.
+   */
   public void actualizarTarea(
     String nombre,
     String descripcion,
@@ -85,6 +97,10 @@ public class Tarea {
       this.fechaFinalizacion = new Date().toString();
     }
   }
+
+  /**
+   * Inicializa la fecha de creación de la tarea.
+   */
 
   @PostConstruct
   public void init() {

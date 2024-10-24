@@ -6,6 +6,7 @@ import com.hazinlab.gestortareasbackend.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/users")
@@ -30,9 +31,11 @@ public class UserController {
     return userService.addUser(user);
   }
 
-  @GetMapping("/verification")
+  @PostMapping("/verification")
   public User verificateLogin(@RequestBody UserDTO userdto) {
     User user = new User(userdto.getName(), userdto.getPwd());
-    return userService.findUserByNameAndPass(user);
+    return userService
+      .findByNameAndPwd(user.getName(), user.getPwd())
+      .orElse(null);
   }
 }
